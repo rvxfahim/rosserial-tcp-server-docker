@@ -1,0 +1,8 @@
+version: '3'
+services:
+  roscore:
+    build:
+        dockerfile: ./Dockerfile
+    container_name: roscore
+    ports:
+      - "11411:11411"
