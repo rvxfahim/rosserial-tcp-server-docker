@@ -2,7 +2,7 @@ FROM ros:noetic-ros-base
 
 
 RUN apt-get update 
-RUN apt install --no-install-recommends -y wget apt-transport-https unzip ros-noetic-rosserial-python supervisor bash
+RUN apt install --no-install-recommends -y wget apt-transport-https unzip ros-noetic-rosserial-python ros-noetic-rosbridge-suite supervisor bash
 
 RUN mkdir -p /rosstart
 RUN mkdir -p /rosstart/log/
@@ -12,12 +12,14 @@ COPY start-roscore.sh /rosstart
 COPY start-rosserial.sh /rosstart
 COPY start-rostopic.sh /rosstart
 COPY start-rosrun.sh /rosstart
+COPY start-rosbridge.sh /rosstart
 RUN chmod +x /rosstart/start-rosrun.sh
 RUN chmod +x /rosstart/entrypoint.sh
 RUN chmod +x /rosstart/start-roscore.sh
 RUN chmod +x /rosstart/start-rosserial.sh
 RUN chmod +x /rosstart/start-rostopic.sh
 RUN chmod +x /rosstart/health-check.sh
+RUN chmod +x /rosstart/start-rosbridge.sh
 RUN mkfifo /rosstart/start-roscore.pipe
 RUN mkdir -p /catkin_ws/src
 
@@ -45,6 +47,7 @@ RUN chmod +x /catkin_ws/src/my_package/scripts/listener.py
 COPY CMakeLists.txt /catkin_ws/src/my_package/CMakeLists.txt
 WORKDIR /catkin_ws
 RUN /bin/bash -c '. /opt/ros/noetic/setup.bash; catkin_make'
+
 # Create directories for Supervisor's UNIX socket and log files
 RUN mkdir -p /var/run/supervisord /var/log/supervisor
 
