@@ -6,6 +6,7 @@ services:
     container_name: roscore
     ports:
       - "11411:11411"
+      - "3636:3636"
       - "9090:9090"
     tty: true
     stdin_open: true
