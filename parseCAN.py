@@ -14,7 +14,7 @@ def add_signal_widgets(message_frame):
 
     # Text Box
     text_box = tk.Entry(group_frame)
-    text_box.grid(row=0, column=0, sticky='ew', padx=5)
+    text_box.grid(row=0, column=0, sticky='w', padx=5)
 
     # Combo Boxes with different choices
     start_bit_choices = [str(i) for i in range(64)]
@@ -71,7 +71,7 @@ def add_message_frame(msg_id, data):
     main_frame.grid_columnconfigure(1, weight=1)  # Make the second column (message label) expandable
 
     # Message Label with fixed width and wraplength
-    label = tk.Label(main_frame, text=f"ID: {msg_id}, Data: {data}", width=30, wraplength=250, anchor="w")
+    label = tk.Label(main_frame, text=f"ID: {msg_id}, Data: {data}", width=40, wraplength=500, anchor="w")
     label.grid(row=0, column=1, sticky="nw", padx=(10, 5))
 
     # Add Signal Button
