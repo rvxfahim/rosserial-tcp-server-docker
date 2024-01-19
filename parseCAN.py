@@ -4,6 +4,32 @@ import json
 import threading
 import socket
 
+def unpack_signal(can_buffer, signal_info, dlc):
+    bit_position = signal_info['start_bit_position']
+    bit_offset = bit_position % 8
+    current_byte_index = bit_position // 8
+    remaining_bits = signal_info['length']
+
+    signal_value = 0
+    shift_amount = 0
+
+    while remaining_bits > 0 and current_byte_index < dlc:
+        bits_in_current_byte = min(remaining_bits, 8 - bit_offset)
+        bit_mask = (1 << bits_in_current_byte) - 1
+        extracted_bits = (can_buffer[current_byte_index] >> bit_offset) & bit_mask
+        signal_value |= extracted_bits << shift_amount
+
+        remaining_bits -= bits_in_current_byte
+        shift_amount += bits_in_current_byte
+        bit_offset = 0
+        current_byte_index += 1 if signal_info['order'] == 'INTEL' else -1
+
+    # Adjust for signed values
+    if signal_info['signed'] and (signal_value & (1 << (signal_info['length'] - 1))):
+        signal_value -= (1 << signal_info['length'])
+
+    return signal_value
+
 def add_signal_widgets(message_frame):
     # Create a new frame for the group of widgets
     group_frame = tk.Frame(message_frame)
@@ -59,8 +85,8 @@ def add_signal_widgets(message_frame):
     update_scroll_region()
 
 def are_comboboxes_set(comboboxes):
-    # Assuming comboboxes[0], comboboxes[1], comboboxes[2] are the ones to check
-    return all(combo.get() for combo in comboboxes[:3])
+    # Assuming comboboxes[0], comboboxes[1], comboboxes[2], comboboxes[3] are the ones to check
+    return all(combo.get() for combo in comboboxes[:4])
 
 def add_message_frame(msg_id, data):
     # Create a main frame for each message
@@ -104,16 +130,34 @@ def update_list(msg_id, data):
                 text_box = children[0]  # The first child is the text box
                 comboboxes = [widget for widget in children if isinstance(widget, ttk.Combobox)]
                 if are_comboboxes_set(comboboxes):
-                    new_value = get_new_value_for_textbox()  # Function to get the new value
+                    new_value = get_new_value_for_textbox(comboboxes[0].get(), comboboxes[1].get(), comboboxes[2].get(), comboboxes[3].get(), data)
                     text_box.delete(0, tk.END)  # Clear the existing text
                     text_box.insert(0, new_value)  # Insert the new value
 
     update_scroll_region()
 
-def get_new_value_for_textbox():
-    # Implement logic to determine the new value for the text box
-    # For example, it could be based on the latest received message or some calculation
-    return "New Value"
+def get_new_value_for_textbox(startbit, length, byteorder, signedness, data):
+    # Convert data to a bytearray
+    data = bytearray(data)
+
+    # Convert startbit and length to integers
+    startbit = int(startbit)
+    length = int(length)
+
+    # Convert byteorder to a boolean
+    byteorder = True if byteorder == "Intel" else False
+
+    # Convert signedness to a boolean
+    signedness = True if signedness == "Signed" else False
+
+    # Unpack the signal
+    signal_info = {
+        'start_bit_position': startbit,
+        'length': length,
+        'order': 'INTEL' if byteorder else 'MOTOROLA',
+        'signed': signedness
+    }
+    return unpack_signal(data, signal_info, len(data))
 
 def receive_messages():
     SERVER_IP = '192.168.31.4'
