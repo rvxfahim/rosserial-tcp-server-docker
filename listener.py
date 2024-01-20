@@ -29,7 +29,7 @@ def send_data_to_clients(data):
         dc.close()
 
 def listener():
-    rospy.Subscriber("/Unknown_Data", String, callback)
+    rospy.Subscriber("/CAN_Data", String, callback)
     rospy.spin()
 
 def start_tcp_server():

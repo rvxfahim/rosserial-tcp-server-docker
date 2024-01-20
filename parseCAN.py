@@ -110,15 +110,20 @@ def update_scroll_region():
     canvas.update_idletasks()  # Update the layout
     canvas.config(scrollregion=canvas.bbox("all"))  # Update the scroll region
 
-def update_list(msg_id, data):
+def update_list(msg_id, message):
+    # Exclude 'msg_id' from the data to be displayed
+    data_to_display = {k: v for k, v in message.items() if k != 'msg_id'}
+
     if msg_id in msg_dict:
         # Update existing message
         message_widget = msg_dict[msg_id]
-        message_widget['label'].config(text=f"ID: {msg_id}, Data: {data}")  # Update label text
+        display_text = f"ID: {msg_id}, " + ", ".join([f"{k}: {v}" for k, v in data_to_display.items()])
+        message_widget['label'].config(text=display_text)  # Update label text
         message_frame = message_widget['frame']  # Access the frame from the stored dictionary
     else:
         # Add new message frame
-        message_frame, message_widget = add_message_frame(msg_id, data)
+        display_text = f"ID: {msg_id}, " + ", ".join([f"{k}: {v}" for k, v in data_to_display.items()])
+        message_frame, message_widget = add_message_frame(msg_id, display_text)
         msg_dict[msg_id] = message_widget
         msg_dict[msg_id]['frame'] = message_frame  # Store the frame in the dictionary for later access
 
@@ -129,8 +134,9 @@ def update_list(msg_id, data):
             if children:
                 text_box = children[0]  # The first child is the text box
                 comboboxes = [widget for widget in children if isinstance(widget, ttk.Combobox)]
-                if are_comboboxes_set(comboboxes):
-                    new_value = get_new_value_for_textbox(comboboxes[0].get(), comboboxes[1].get(), comboboxes[2].get(), comboboxes[3].get(), data)
+                # Check for a specific key in the message for signal processing (e.g., 'data')
+                if 'data' in message and are_comboboxes_set(comboboxes):
+                    new_value = get_new_value_for_textbox(comboboxes[0].get(), comboboxes[1].get(), comboboxes[2].get(), comboboxes[3].get(), message['data'])
                     text_box.delete(0, tk.END)  # Clear the existing text
                     text_box.insert(0, new_value)  # Insert the new value
 
@@ -177,7 +183,7 @@ def receive_messages():
                             break
                         data.extend(packet)
                     message = json.loads(data.decode())
-                    root.after(0, update_list, message['msg_id'], message['data'])
+                    root.after(0, update_list, message['msg_id'], message)
             except Exception as e:
                 print("Error receiving data:", e)
                 break
