@@ -2,6 +2,12 @@ FROM ros:noetic-ros-base
 
 RUN apt-get update 
 RUN apt install --no-install-recommends -y wget apt-transport-https unzip ros-noetic-rosserial-python ros-noetic-rosbridge-suite supervisor bash dos2unix
+# Install Python3 pip if it's not already installed
+RUN apt-get install -y python3-pip
+
+# Install the websocket-server library
+RUN pip3 install websockets
+RUN pip3 install pymongo
 
 RUN mkdir -p /rosstart
 RUN mkdir -p /rosstart/log/

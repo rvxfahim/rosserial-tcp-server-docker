@@ -2,8 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 import json
 import threading
-import socket
-
+import asyncio
+import websockets
+import traceback
 def unpack_signal(can_buffer, signal_info, dlc):
     bit_position = signal_info['start_bit_position']
     bit_offset = bit_position % 8
@@ -165,28 +166,36 @@ def get_new_value_for_textbox(startbit, length, byteorder, signedness, data):
     }
     return unpack_signal(data, signal_info, len(data))
 
-def receive_messages():
-    SERVER_IP = '192.168.31.4'
-    SERVER_PORT = 3636
+async def receive_messages_async():
+    SERVER_URI = 'ws://192.168.31.4:3636'
+    retry_count = 0
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
-        client_socket.connect((SERVER_IP, SERVER_PORT))
-
-        while True:
-            try:
-                data_length = int.from_bytes(client_socket.recv(4), 'big')
-                if data_length:
-                    data = bytearray()
-                    while len(data) < data_length:
-                        packet = client_socket.recv(data_length - len(data))
-                        if not packet:
-                            break
-                        data.extend(packet)
-                    message = json.loads(data.decode())
-                    root.after(0, update_list, message['msg_id'], message)
-            except Exception as e:
-                print("Error receiving data:", e)
+    while True:
+        try:
+            async with websockets.connect(SERVER_URI) as websocket:
+                while True:
+                    try:
+                        data = await websocket.recv()
+                        message = json.loads(data)
+                        # Use Tkinter's thread-safe method to update the GUI
+                        root.after(0, update_list, message['msg_id'], message)
+                    except Exception as e:
+                        print(f"Error receiving data: {e} of type {type(e).__name__}")
+                        traceback.print_exc()
+                        break
+        except Exception as e:
+            print(f"Error connecting to server: {e} of type {type(e).__name__}")
+            traceback.print_exc()
+            retry_count += 1
+            if retry_count > 5:
+                print("Maximum retry count reached. Exiting...")
                 break
+            else:
+                print("Retrying connection...")
+                await asyncio.sleep(5)  # Wait for 5 seconds before retrying
+
+def receive_messages():
+    asyncio.run(receive_messages_async())
 
 def start_client_thread():
     client_thread = threading.Thread(target=receive_messages, daemon=True)

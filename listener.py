@@ -2,61 +2,68 @@
 import rospy
 from std_msgs.msg import String
 import threading
-import socket
+import websockets
+import asyncio
+import json
+from pymongo import MongoClient
+from pymongo.errors import ServerSelectionTimeoutError
+import time
+# Create a MongoDB client
+try:
+    client = MongoClient('mongodb://192.168.31.4:27017/', serverSelectionTimeoutMS=5000)
+    # The ismaster command is cheap and does not require auth.
+    client.admin.command('ismaster')
+    print("MongoDB connection established!")
+except ServerSelectionTimeoutError:
+    print("Unable to connect to the MongoDB server. Check your connection settings and ensure the server is running.")
 
+# Connect to your database
+db = client['CAN_Data']
+# Choose your collection
+collection = db['all_data']
 def callback(data):
+    parsed_data = json.loads(data.data)
+    parsed_data['timestamp'] = int(time.time())  # Add timestamp key
+    # print(parsed_data)
     # rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-    send_data_to_clients(data.data)
+    # Insert the data into MongoDB
+    collection.insert_one(parsed_data)
+    asyncio.run(send_data_to_clients(data.data))
 
-def send_data_to_clients(data):
+async def send_data_to_clients(data):
     disconnected_clients = []
-    encoded_data = data.encode()
-    data_length = len(encoded_data)
-    prefixed_data = data_length.to_bytes(4, 'big') + encoded_data  # 4-byte length prefix
-    for client_socket in client_sockets:
+    for ws in websocket_clients:
         try:
-            client_socket.sendall(prefixed_data)
-        except BrokenPipeError:
+            await ws.send(data)
+        except websockets.exceptions.ConnectionClosed:
             rospy.logwarn("Client disconnected")
-            disconnected_clients.append(client_socket)
-        except Exception as e:
-            rospy.logwarn("Error sending data to client: %s", e)
-            disconnected_clients.append(client_socket)
+            disconnected_clients.append(ws)
 
-    # Remove disconnected clients
     for dc in disconnected_clients:
-        client_sockets.remove(dc)
-        dc.close()
+        websocket_clients.remove(dc)
 
 def listener():
     rospy.Subscriber("/CAN_Data", String, callback)
     rospy.spin()
 
-def start_tcp_server():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_socket.bind(('0.0.0.0', 3636))
-    server_socket.listen(5)
+async def start_websocket_server():
+    async with websockets.serve(handler, '0.0.0.0', 3636):
+        await asyncio.Future()  # Run forever
 
-    while not rospy.is_shutdown():
-        try:
-            client_socket, address = server_socket.accept()
-            client_sockets.append(client_socket)
-            print('New client connected:', address)
-        except socket.error as e:
-            rospy.logwarn("Socket error: %s", e)
-            break
-
-    server_socket.close()
+async def handler(websocket, path):
+    websocket_clients.add(websocket)
+    try:
+        await websocket.wait_closed()
+    finally:
+        websocket_clients.remove(websocket)
 
 if __name__ == '__main__':
-    client_sockets = []
+    websocket_clients = set()
     rospy.init_node('listener', anonymous=True)
+
+    # Start the ROS listener in a separate thread
     listener_thread = threading.Thread(target=listener)
-    server_thread = threading.Thread(target=start_tcp_server)
-
     listener_thread.start()
-    server_thread.start()
 
-    listener_thread.join()
-    server_thread.join()
+    # Run the WebSocket server in the main thread
+    asyncio.run(start_websocket_server())
