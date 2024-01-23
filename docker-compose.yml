@@ -6,7 +6,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - C:/Users/Fahim/Documents/rosserial-tcp-server-docker/mongo_data:/data/db
+      - ./mongo_data:/data/db
   roscore:
     build:
         dockerfile: ./Dockerfile
@@ -19,3 +19,15 @@ services:
       - "9090:9090"
     tty: true
     stdin_open: true
+  nodered:
+    build:
+      context: .
+      dockerfile: Dockerfile_Nodered
+    container_name: nodered
+    depends_on:
+      - roscore
+    environment:
+      - ROS_MASTER_URI=http://roscore:11311
+      - FLOWS=/data/flows.json
+    ports:
+      - "1880:1880"
