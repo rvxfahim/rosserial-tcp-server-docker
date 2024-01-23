@@ -23,7 +23,7 @@ db = client['CAN_Data']
 collection = db['all_data']
 def callback(data):
     parsed_data = json.loads(data.data)
-    parsed_data['timestamp'] = int(time.time())  # Add timestamp key
+    parsed_data['timestamp'] = time.time_ns() // 1_000_000  # Add timestamp key
     # print(parsed_data)
     # rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
     # Insert the data into MongoDB
