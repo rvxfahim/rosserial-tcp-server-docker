@@ -35,7 +35,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 1",
-        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nvar fl = innerData.fl;\n\n// Prepare the chart data format\nvar chartData = {\n    series: [\"front left speed\"],\n    data: [[\n        { \"x\": new Date().getTime(), \"y\": fl }\n    ]],\n    labels: [\"\"]\n};\n\n// Set the chart data as the new payload\nmsg.payload = fl;\nreturn msg;",
+        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nif ('fl' in innerData) {\nvar fl = innerData.fl;\n    msg.payload = fl;\n    return msg;\n}\nelse \nreturn null;\n// Set the chart data as the new payload\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -119,7 +119,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 2",
-        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nvar fr = innerData.fr;\n\n// Set the chart data as the new payload\nmsg.payload = fr;\nreturn msg;",
+        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nif ('fr' in innerData) {\nvar fr = innerData.fr;\n    msg.payload = fr;\n    return msg;\n}\nelse\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -140,7 +140,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 3",
-        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nvar rl = innerData.rl;\n\n// Prepare the chart data format\nvar chartData = {\n    series: [\"front left speed\"],\n    data: [[\n        { \"x\": new Date().getTime(), \"y\": rl }\n    ]],\n    labels: [\"\"]\n};\n\n// Set the chart data as the new payload\nmsg.payload = rl;\nreturn msg;",
+        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\n// Extract the msg_id value\nif ('rl' in innerData) {\nvar rl = innerData.rl;\n    msg.payload = rl;\n    return msg;\n}\nelse\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -161,7 +161,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 4",
-        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nvar rr = innerData.rr;\n\n// Prepare the chart data format\nvar chartData = {\n    series: [\"front left speed\"],\n    data: [[\n        { \"x\": new Date().getTime(), \"y\": rr }\n    ]],\n    labels: [\"\"]\n};\n\n// Set the chart data as the new payload\nmsg.payload = rr;\nreturn msg;",
+        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\n// Extract the msg_id value\nif ('rr' in innerData) {\nvar rr = innerData.rr;\n    msg.payload = rr;\n    return msg;\n}\nelse\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -452,9 +452,9 @@
         "z": "f6f2187d.f17ca8",
         "name": "",
         "group": "81de8657af50733f",
-        "order": 0,
-        "width": 0,
-        "height": 0,
+        "order": 2,
+        "width": 6,
+        "height": 1,
         "passthru": false,
         "label": "button",
         "tooltip": "",
@@ -479,7 +479,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 5",
-        "func": "// Assuming you have a field like 'timestamp' or '_id' to sort by\nconst sortBy = { timestamp: -1 }; // Replace 'timestamp' with your field name\nlet id = parseInt(global.get(\"can_id\"));\n// find query argument - this remains unchanged as you're still querying the same collection\nvar query = {\n    msg_id: id\n};\n\n// find option argument - now includes sorting and a limit\nconst options = {\n    sort: sortBy,\n    limit: 10\n};\n\n// payload for mongodb4 node\nmsg.payload = [query, options];\nreturn msg;",
+        "func": "// Assuming you have a field like 'timestamp' or '_id' to sort by\nconst sortBy = { timestamp: -1 }; // Replace 'timestamp' with your field name\nlet id = parseInt(global.get(\"can_id\"));\n// find query argument - this remains unchanged as you're still querying the same collection\nvar query = {\n    msg_id: id\n};\n\n// find option argument - now includes sorting and a limit\nconst options = {\n    sort: sortBy\n};\n\n// payload for mongodb4 node\nmsg.payload = [query, options];\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -490,8 +490,7 @@
         "y": 680,
         "wires": [
             [
-                "15c9f9a3f94b3769",
-                "956ca261bcbe44ac"
+                "15c9f9a3f94b3769"
             ]
         ]
     },
@@ -520,7 +519,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 6",
-        "func": "// Function to dynamically get field names from the data\nfunction getDynamicFields(data) {\n    let fieldNames = new Set();\n    data.forEach(item => {\n        Object.keys(item).forEach(key => fieldNames.add(key));\n    });\n    return Array.from(fieldNames);\n}\n\n// Assuming msg.payload is an array of objects from the MongoDB query\nif (Array.isArray(msg.payload) && msg.payload.length > 0) {\n    // Get dynamic fields from the data\n    const fields = getDynamicFields(msg.payload);\n\n    // Set the fields in msg to be used by the json2csv node\n    msg.fields = fields;\n\n    // Pass the message to the next node (json2csv node)\n    return msg;\n} else {\n    // Handle empty or invalid data\n    node.warn('No data or invalid data format for CSV conversion');\n    return null; // Or handle as needed\n}\n",
+        "func": "// Function to dynamically get field names from the data\nfunction getDynamicFields(data) {\n    let fieldNames = new Set();\n    data.forEach(item => {\n        Object.keys(item).forEach(key => fieldNames.add(key));\n    });\n    return Array.from(fieldNames);\n}\n\n// Assuming msg.payload is an array of objects from the MongoDB query\nif (Array.isArray(msg.payload) && msg.payload.length > 0) {\n    // Get dynamic fields from the data\n    const fields = getDynamicFields(msg.payload);\n\n    // Set the fields in msg to be used by the json2csv node\n    msg.fields = fields;\n    msg.nodata = \"flase\";\n    // Pass the message to the next node (json2csv node)\n    return msg;\n} else {\n    // Handle empty or invalid data\n    node.warn('No data or invalid data format for CSV conversion');\n    msg.nodata= \"true\";\n    return msg; // Or handle as needed\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -531,8 +530,8 @@
         "y": 680,
         "wires": [
             [
-                "211bb19c0e49fa2e",
-                "4377d3e98f072785"
+                "bbb43c125c845946",
+                "ae35ad47bebf21db"
             ]
         ]
     },
@@ -548,7 +547,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1160,
+        "x": 1280,
         "y": 680,
         "wires": [
             [
@@ -557,27 +556,11 @@
         ]
     },
     {
-        "id": "211bb19c0e49fa2e",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 760,
-        "wires": []
-    },
-    {
         "id": "4377d3e98f072785",
         "type": "json-2-csv",
         "z": "f6f2187d.f17ca8",
         "name": "",
-        "x": 940,
+        "x": 1060,
         "y": 680,
         "wires": [
             [
@@ -596,7 +579,7 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 1340,
+        "x": 1460,
         "y": 680,
         "wires": [
             [
@@ -616,12 +599,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1520,
+        "x": 1640,
         "y": 680,
         "wires": [
             [
-                "d39775359a228215",
-                "77ccf5b0e2af24d6"
+                "d39775359a228215"
             ]
         ]
     },
@@ -631,36 +613,20 @@
         "z": "f6f2187d.f17ca8",
         "group": "81de8657af50733f",
         "name": "",
-        "order": 1,
-        "width": 0,
-        "height": 0,
+        "order": 4,
+        "width": 6,
+        "height": 1,
         "format": "<!-- ui_template node content -->\n<a id=\"hiddenDownloader\" href=\"http://localhost:1880/csv/data.csv\" download=\"data.csv\"\n    style=\"display:none;\">Download</a>\n<script type=\"text/javascript\">\n    // Add an AngularJS watch on 'msg' to listen for a message from the button\n    (function(scope) {\n        scope.$watch('msg', function(msg) {\n            if (msg) {\n                // Use the static link for the CSV file\n                var link = document.getElementById('hiddenDownloader');\n                // Trigger the download\n                link.click();\n            }\n        });\n    })(scope);\n</script>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
+        "storeOutMessages": false,
+        "fwdInMessages": false,
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 1680,
+        "x": 1800,
         "y": 680,
         "wires": [
             []
         ]
-    },
-    {
-        "id": "77ccf5b0e2af24d6",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1650,
-        "y": 760,
-        "wires": []
     },
     {
         "id": "cdadaa8d2ef7b7dd",
@@ -690,9 +656,9 @@
         "label": "Message ID to query",
         "tooltip": "",
         "group": "81de8657af50733f",
-        "order": 2,
-        "width": 0,
-        "height": 0,
+        "order": 1,
+        "width": 6,
+        "height": 1,
         "passthru": true,
         "mode": "text",
         "delay": "100",
@@ -734,20 +700,65 @@
         ]
     },
     {
-        "id": "956ca261bcbe44ac",
-        "type": "debug",
+        "id": "9e1ef9c2c60d3139",
+        "type": "ui_text",
         "z": "f6f2187d.f17ca8",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 430,
-        "y": 760,
+        "group": "81de8657af50733f",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1090,
+        "y": 780,
         "wires": []
+    },
+    {
+        "id": "bbb43c125c845946",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 10",
+        "func": "var nodata = msg.nodata;\nif (nodata == 'true')\n{\n    msg.payload = 'No Message found with the msg id: ' + global.get('can_id');\n    node.warn('setting text field');\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 780,
+        "wires": [
+            [
+                "9e1ef9c2c60d3139"
+            ]
+        ]
+    },
+    {
+        "id": "ae35ad47bebf21db",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 11",
+        "func": "var nodata = msg.nodata;\nif( nodata == 'true')\n{\n    return null;\n}\nelse \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 680,
+        "wires": [
+            [
+                "4377d3e98f072785"
+            ]
+        ]
     },
     {
         "id": "a852d40cfa1a36ff",
@@ -852,7 +863,7 @@
         "tab": "2ade4e74fc264a84",
         "order": 1,
         "disp": true,
-        "width": "6",
+        "width": 6,
         "collapse": false,
         "className": ""
     },

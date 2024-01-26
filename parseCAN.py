@@ -1,10 +1,44 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, simpledialog
 import json
 import threading
 import asyncio
 import websockets
 import traceback
+
+async def receive_messages_async(server_uri, update_gui_callback, on_connection_error_callback):
+    retry_count = 0
+    while True:
+        try:
+            async with websockets.connect(server_uri) as websocket:
+                retry_count = 0  # Reset retry count on successful connection
+                while True:
+                    try:
+                        data = await websocket.recv()
+                        message = json.loads(data)
+                        update_gui_callback(message['msg_id'], message)
+                    except Exception as e:
+                        print(f"Error receiving data: {e} of type {type(e).__name__}")
+                        traceback.print_exc()
+                        break
+        except Exception as e:
+            print(f"Error connecting to server: {e} of type {type(e).__name__}")
+            traceback.print_exc()
+            retry_count += 1
+            on_connection_error_callback(retry_count)
+            if retry_count > 5:
+                print("Maximum retry count reached. Exiting...")
+                break
+            else:
+                await asyncio.sleep(5)  # Wait for 5 seconds before retrying
+
+def receive_messages(server_uri):
+    asyncio.run(receive_messages_async(
+        server_uri,
+        lambda msg_id, message: root.after(0, update_list, msg_id, message),
+        lambda retry_count: root.after(0, show_retry_dialog, retry_count)
+    ))
+
 def unpack_signal(can_buffer, signal_info, dlc):
     bit_position = signal_info['start_bit_position']
     bit_offset = bit_position % 8
@@ -166,23 +200,23 @@ def get_new_value_for_textbox(startbit, length, byteorder, signedness, data):
     }
     return unpack_signal(data, signal_info, len(data))
 
-async def receive_messages_async():
-    SERVER_URI = 'ws://192.168.31.4:3636'
+async def receive_messages_async(server_uri, update_gui_callback, on_connection_error_callback):
     retry_count = 0
-
     while True:
         try:
-            async with websockets.connect(SERVER_URI) as websocket:
+            async with websockets.connect(server_uri) as websocket:
+                retry_count = 0  # Reset retry count on successful connection
                 while True:
                     try:
                         data = await websocket.recv()
                         message = json.loads(data)
-                        # Use Tkinter's thread-safe method to update the GUI
-                        root.after(0, update_list, message['msg_id'], message)
+                        update_gui_callback(message['msg_id'], message)
                     except Exception as e:
                         print(f"Error receiving data: {e} of type {type(e).__name__}")
                         traceback.print_exc()
                         break
+            # Connection closed, call error callback
+            on_connection_error_callback(retry_count)
         except Exception as e:
             print(f"Error connecting to server: {e} of type {type(e).__name__}")
             traceback.print_exc()
@@ -194,12 +228,21 @@ async def receive_messages_async():
                 print("Retrying connection...")
                 await asyncio.sleep(5)  # Wait for 5 seconds before retrying
 
-def receive_messages():
-    asyncio.run(receive_messages_async())
-
-def start_client_thread():
-    client_thread = threading.Thread(target=receive_messages, daemon=True)
+def start_client_thread(server_uri):
+    client_thread = threading.Thread(target=receive_messages, args=(server_uri,), daemon=True)
     client_thread.start()
+
+def show_retry_dialog(retry_count):
+    response = simpledialog.askstring("Connection Lost", f"Connection lost. Retrying... (Attempt {retry_count})\nChange server URI or cancel to stop:")
+    if response is not None:
+        start_client_thread(response)  # Start with new URI
+    else:
+        print("User canceled the connection retry.")
+
+def show_connection_config():
+    server_uri = simpledialog.askstring("Connection Configuration", "Enter server URI:", initialvalue="ws://192.168.31.4:3636")
+    if server_uri:
+        start_client_thread(server_uri)
 
 # Tkinter GUI setup
 root = tk.Tk()
@@ -228,6 +271,15 @@ canvas.create_window((0, 0), window=message_list_frame, anchor="nw")
 
 msg_dict = {}  # Dictionary to track message IDs and their list index
 
-start_client_thread()  # Start the client thread
+menu_bar = tk.Menu(root)
+root.config(menu=menu_bar)
+
+file_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="File", menu=file_menu)
+file_menu.add_command(label="Configure Connection", command=show_connection_config)
+
+msg_dict = {}  # Dictionary to track message IDs and their list index
+
+show_connection_config()  # Open connection configuration on start
 
 root.mainloop()

@@ -1,34 +1,80 @@
 #!/usr/bin/env python3
-import rospy
-from std_msgs.msg import String
-import threading
-import websockets
 import asyncio
 import json
-from pymongo import MongoClient
-from pymongo.errors import ServerSelectionTimeoutError
 import time
-# Create a MongoDB client
+import threading
+import websockets
+import rospy
+from std_msgs.msg import String
+from pymongo import MongoClient, errors
+# Constants
+SEND_INTERVAL_MS = 100  # Example rate limit interval in milliseconds
+last_send_times = {}  # Dictionary to store the last send time for each msg_id
+
+# MongoDB setup
 try:
-    client = MongoClient('mongodb://192.168.31.4:27017/', serverSelectionTimeoutMS=5000)
-    # The ismaster command is cheap and does not require auth.
+    client = MongoClient('mongodb://mongodb:27017/', serverSelectionTimeoutMS=5000)
     client.admin.command('ismaster')
     print("MongoDB connection established!")
-except ServerSelectionTimeoutError:
+except errors.ServerSelectionTimeoutError:
     print("Unable to connect to the MongoDB server. Check your connection settings and ensure the server is running.")
 
-# Connect to your database
 db = client['CAN_Data']
-# Choose your collection
 collection = db['all_data']
+
+# Asyncio queues for document types
+queue_with_data = asyncio.Queue()
+queue_without_data = asyncio.Queue()
+
+async def batch_writer(queue):
+    buffer = []
+    last_doc_time = None
+
+    while True:
+        try:
+            # Wait for new doc or timeout
+            doc = await asyncio.wait_for(queue.get(), timeout=1)
+            buffer.append(doc)
+            last_doc_time = time.time()
+        except asyncio.TimeoutError:
+            if last_doc_time and time.time() - last_doc_time >= 1:
+                if buffer:
+                    collection.insert_many(buffer)
+                    buffer.clear()
+                last_doc_time = None
+        else:
+            if len(buffer) >= 100:
+                collection.insert_many(buffer)
+                buffer.clear()
+
+def should_send_for_msg_id(msg_id):
+    current_time_ms = time.time_ns() // 1_000_000
+    if msg_id not in last_send_times or (current_time_ms - last_send_times[msg_id]) >= SEND_INTERVAL_MS:
+        last_send_times[msg_id] = current_time_ms
+        return True
+    return False
+
 def callback(data):
-    parsed_data = json.loads(data.data)
-    parsed_data['timestamp'] = time.time_ns() // 1_000_000  # Add timestamp key
-    # print(parsed_data)
-    # rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-    # Insert the data into MongoDB
-    collection.insert_one(parsed_data)
-    asyncio.run(send_data_to_clients(data.data))
+    try:
+        parsed_data = json.loads(data.data)
+        msg_id = parsed_data.get('msg_id')
+        parsed_data['timestamp'] = time.time_ns() // 1_000_000
+    except json.JSONDecodeError as e:
+        print(f"Failed to parse JSON: {e}")
+        print(f"Received data: {data.data}")  # Print the received data
+        return
+
+    # Check if the message should be sent for this msg_id
+    if msg_id is not None and should_send_for_msg_id(msg_id):
+        asyncio.run_coroutine_threadsafe(send_data_to_clients(data.data), loop)
+    else:
+        # Handle the case where msg_id is None or rate limit applies
+        pass
+
+    if 'data' in parsed_data:
+        asyncio.run_coroutine_threadsafe(queue_with_data.put(parsed_data), loop)
+    else:
+        asyncio.run_coroutine_threadsafe(queue_without_data.put(parsed_data), loop)
 
 async def send_data_to_clients(data):
     disconnected_clients = []
@@ -60,10 +106,15 @@ async def handler(websocket, path):
 if __name__ == '__main__':
     websocket_clients = set()
     rospy.init_node('listener', anonymous=True)
+    loop = asyncio.get_event_loop()
 
     # Start the ROS listener in a separate thread
     listener_thread = threading.Thread(target=listener)
     listener_thread.start()
 
+    # Start batch writers
+    loop.create_task(batch_writer(queue_with_data))
+    loop.create_task(batch_writer(queue_without_data))
+
     # Run the WebSocket server in the main thread
-    asyncio.run(start_websocket_server())
+    loop.run_until_complete(start_websocket_server())
