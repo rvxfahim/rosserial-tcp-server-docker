@@ -267,7 +267,7 @@
         "server": "16e32ee25193139d",
         "topicname": "/CAN_Data",
         "x": 130,
-        "y": 400,
+        "y": 340,
         "wires": [
             [
                 "260f269cbdbe56b4"
@@ -287,7 +287,7 @@
         "finalize": "",
         "libs": [],
         "x": 700,
-        "y": 340,
+        "y": 280,
         "wires": [
             [
                 "7f247208e1465a66",
@@ -304,7 +304,7 @@
         "action": "str",
         "pretty": false,
         "x": 530,
-        "y": 400,
+        "y": 340,
         "wires": [
             [
                 "9f031483db7ea1e0",
@@ -353,7 +353,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 940,
-        "y": 420,
+        "y": 360,
         "wires": [
             []
         ]
@@ -371,7 +371,7 @@
         "finalize": "",
         "libs": [],
         "x": 700,
-        "y": 380,
+        "y": 320,
         "wires": [
             [
                 "644df193cb0b84b3",
@@ -392,7 +392,7 @@
         "finalize": "",
         "libs": [],
         "x": 700,
-        "y": 420,
+        "y": 360,
         "wires": [
             [
                 "0d93a6c93452efd5",
@@ -413,7 +413,7 @@
         "finalize": "",
         "libs": [],
         "x": 700,
-        "y": 460,
+        "y": 400,
         "wires": [
             [
                 "172f672f55320c40",
@@ -460,7 +460,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 950,
-        "y": 460,
+        "y": 400,
         "wires": [
             []
         ]
@@ -504,7 +504,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 940,
-        "y": 500,
+        "y": 440,
         "wires": [
             []
         ]
@@ -548,7 +548,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 950,
-        "y": 540,
+        "y": 480,
         "wires": [
             []
         ]
@@ -578,7 +578,7 @@
         "diff": true,
         "className": "",
         "x": 940,
-        "y": 260,
+        "y": 200,
         "wires": []
     },
     {
@@ -606,7 +606,7 @@
         "diff": true,
         "className": "",
         "x": 950,
-        "y": 300,
+        "y": 240,
         "wires": []
     },
     {
@@ -634,7 +634,7 @@
         "diff": true,
         "className": "",
         "x": 940,
-        "y": 340,
+        "y": 280,
         "wires": []
     },
     {
@@ -662,7 +662,7 @@
         "diff": true,
         "className": "",
         "x": 950,
-        "y": 380,
+        "y": 320,
         "wires": []
     },
     {
@@ -683,7 +683,7 @@
         "allowrate": true,
         "outputs": 1,
         "x": 330,
-        "y": 400,
+        "y": 340,
         "wires": [
             [
                 "14a6d4ab34f51f0a"
@@ -1030,8 +1030,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 1230,
-        "y": 400,
+        "x": 1610,
+        "y": 680,
         "wires": [
             [
                 "4a2a5897657abccb",
@@ -1051,8 +1051,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 1420,
-        "y": 400,
+        "x": 1800,
+        "y": 680,
         "wires": [
             [
                 "cdbc7a8d9b5d7424",
@@ -1069,8 +1069,8 @@
         "headers": {
             "content-type": "text/csv"
         },
-        "x": 1590,
-        "y": 400,
+        "x": 1970,
+        "y": 680,
         "wires": []
     },
     {
@@ -1085,8 +1085,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1350,
-        "y": 460,
+        "x": 1730,
+        "y": 740,
         "wires": []
     },
     {
@@ -1101,8 +1101,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1550,
-        "y": 460,
+        "x": 1930,
+        "y": 740,
         "wires": []
     }
 ]
