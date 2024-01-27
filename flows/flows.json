@@ -1,0 +1,1024 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a852d40cfa1a36ff",
+        "type": "ui_spacer",
+        "z": "f6f2187d.f17ca8",
+        "name": "spacer",
+        "group": "8021662921c7187a",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "4962f229e02385e3",
+        "type": "ui_spacer",
+        "z": "f6f2187d.f17ca8",
+        "name": "spacer",
+        "group": "8021662921c7187a",
+        "order": 9,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "4474c449324e8d07",
+        "type": "ui_spacer",
+        "z": "f6f2187d.f17ca8",
+        "name": "spacer",
+        "group": "8021662921c7187a",
+        "order": 10,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "439c6389adbfbd67",
+        "type": "ui_spacer",
+        "z": "f6f2187d.f17ca8",
+        "name": "spacer",
+        "group": "8021662921c7187a",
+        "order": 11,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b59e4ae048426257",
+        "type": "ui_spacer",
+        "z": "f6f2187d.f17ca8",
+        "name": "spacer",
+        "group": "8021662921c7187a",
+        "order": 13,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "16b07611f261e334",
+        "type": "ui_spacer",
+        "z": "f6f2187d.f17ca8",
+        "name": "spacer",
+        "group": "8021662921c7187a",
+        "order": 14,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "1801aeac37f39960",
+        "type": "ui_spacer",
+        "z": "f6f2187d.f17ca8",
+        "name": "spacer",
+        "group": "8021662921c7187a",
+        "order": 15,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "29fb8ae7078215fa",
+        "type": "ui_spacer",
+        "z": "f6f2187d.f17ca8",
+        "name": "spacer",
+        "group": "8021662921c7187a",
+        "order": 16,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "16e32ee25193139d",
+        "type": "ros-server",
+        "url": "ws://roscore:9090"
+    },
+    {
+        "id": "8021662921c7187a",
+        "type": "ui_group",
+        "name": "Wheel Speed",
+        "tab": "2352467447307351",
+        "order": 1,
+        "disp": true,
+        "width": "17",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "81de8657af50733f",
+        "type": "ui_group",
+        "name": "DB Query",
+        "tab": "2ade4e74fc264a84",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ac4d74e08b2188b7",
+        "type": "mongodb4-client",
+        "name": "",
+        "protocol": "mongodb",
+        "hostname": "192.168.31.4",
+        "port": "",
+        "dbName": "CAN_Data",
+        "appName": "",
+        "authSource": "",
+        "authMechanism": "DEFAULT",
+        "tls": false,
+        "tlsCAFile": "",
+        "tlsCertificateKeyFile": "",
+        "tlsInsecure": false,
+        "connectTimeoutMS": "30000",
+        "socketTimeoutMS": "0",
+        "minPoolSize": "0",
+        "maxPoolSize": "100",
+        "maxIdleTimeMS": "0",
+        "uri": "",
+        "advanced": "{}",
+        "uriTabActive": "tab-uri-simple"
+    },
+    {
+        "id": "2352467447307351",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "2ade4e74fc264a84",
+        "type": "ui_tab",
+        "name": "DB",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "c88e0a2b8fd1d174",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "3cc11d24.ff01a2",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "WARNING: please check you have started this container with a volume that is mounted to /data\\n otherwise any flow changes are lost when you redeploy or upgrade the container\\n (e.g. upgrade to a more recent node-red docker image).\\n  If you are using named volumes you can ignore this warning.\\n Double click or see info side panel to learn how to start Node-RED in Docker to save your work",
+        "info": "\nTo start docker with a bind mount volume (-v option), for example:\n\n```\ndocker run -it -p 1880:1880 -v /home/user/node_red_data:/data --name mynodered nodered/node-red\n```\n\nwhere `/home/user/node_red_data` is a directory on your host machine where you want to store your flows.\n\nIf you do not do this then you can experiment and redploy flows, but if you restart or upgrade the container the flows will be disconnected and lost. \n\nThey will still exist in a hidden data volume, which can be recovered using standard docker techniques, but that is much more complex than just starting with a named volume as described above.",
+        "x": 350,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "d75d9ce90a4c5289",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "16e32ee25193139d",
+        "topicname": "/CAN_Data",
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "260f269cbdbe56b4"
+            ]
+        ]
+    },
+    {
+        "id": "9f031483db7ea1e0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 1",
+        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nif ('fl' in innerData) {\nvar fl = innerData.fl;\n    msg.payload = fl;\n    return msg;\n}\nelse \nreturn null;\n// Set the chart data as the new payload\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 340,
+        "wires": [
+            [
+                "7f247208e1465a66",
+                "48a8ef8ab0b032c3"
+            ]
+        ]
+    },
+    {
+        "id": "14a6d4ab34f51f0a",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [
+                "9f031483db7ea1e0",
+                "f372b995844454bc",
+                "cfcfaece8b94b572",
+                "c0a74053ca326513"
+            ]
+        ]
+    },
+    {
+        "id": "7f247208e1465a66",
+        "type": "ui_chart",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "8021662921c7187a",
+        "order": 1,
+        "width": 8,
+        "height": 8,
+        "label": "Front Left",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 940,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f372b995844454bc",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 2",
+        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nif ('fr' in innerData) {\nvar fr = innerData.fr;\n    msg.payload = fr;\n    return msg;\n}\nelse\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 380,
+        "wires": [
+            [
+                "644df193cb0b84b3",
+                "13cdf820fd556f08"
+            ]
+        ]
+    },
+    {
+        "id": "cfcfaece8b94b572",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 3",
+        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\n// Extract the msg_id value\nif ('rl' in innerData) {\nvar rl = innerData.rl;\n    msg.payload = rl;\n    return msg;\n}\nelse\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 420,
+        "wires": [
+            [
+                "0d93a6c93452efd5",
+                "0ab12f70dbeff56b"
+            ]
+        ]
+    },
+    {
+        "id": "c0a74053ca326513",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 4",
+        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\n// Extract the msg_id value\nif ('rr' in innerData) {\nvar rr = innerData.rr;\n    msg.payload = rr;\n    return msg;\n}\nelse\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 460,
+        "wires": [
+            [
+                "172f672f55320c40",
+                "8a4586082ffed72a"
+            ]
+        ]
+    },
+    {
+        "id": "644df193cb0b84b3",
+        "type": "ui_chart",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "8021662921c7187a",
+        "order": 2,
+        "width": 8,
+        "height": 8,
+        "label": "Front Right",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0d93a6c93452efd5",
+        "type": "ui_chart",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "8021662921c7187a",
+        "order": 3,
+        "width": 8,
+        "height": 8,
+        "label": "Rear Left",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 940,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "172f672f55320c40",
+        "type": "ui_chart",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "8021662921c7187a",
+        "order": 4,
+        "width": 8,
+        "height": 8,
+        "label": "Rear Right",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "48a8ef8ab0b032c3",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "8021662921c7187a",
+        "order": 5,
+        "width": "4",
+        "height": 4,
+        "gtype": "gage",
+        "title": "Front Left",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "-4200",
+        "max": "4200",
+        "colors": [
+            "#b30000",
+            "#32e600",
+            "#cb3a3a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": true,
+        "className": "",
+        "x": 940,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "13cdf820fd556f08",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "8021662921c7187a",
+        "order": 6,
+        "width": "4",
+        "height": 4,
+        "gtype": "gage",
+        "title": "Front Right",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "-4200",
+        "max": "4200",
+        "colors": [
+            "#b30000",
+            "#32e600",
+            "#cb3a3a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": true,
+        "className": "",
+        "x": 950,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "0ab12f70dbeff56b",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "8021662921c7187a",
+        "order": 7,
+        "width": "4",
+        "height": 4,
+        "gtype": "gage",
+        "title": "Rear Left",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "-4200",
+        "max": "4200",
+        "colors": [
+            "#b30000",
+            "#32e600",
+            "#cb3a3a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": true,
+        "className": "",
+        "x": 940,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "8a4586082ffed72a",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "8021662921c7187a",
+        "order": 12,
+        "width": "4",
+        "height": 4,
+        "gtype": "gage",
+        "title": "Rear Right",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "-4200",
+        "max": "4200",
+        "colors": [
+            "#b30000",
+            "#32e600",
+            "#cb3a3a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": true,
+        "className": "",
+        "x": 950,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "260f269cbdbe56b4",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "10",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "0.1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": true,
+        "outputs": 1,
+        "x": 330,
+        "y": 400,
+        "wires": [
+            [
+                "14a6d4ab34f51f0a"
+            ]
+        ]
+    },
+    {
+        "id": "4f1007d6697f1e9b",
+        "type": "ui_button",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "81de8657af50733f",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Download CSV",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 100,
+        "y": 680,
+        "wires": [
+            [
+                "cdadaa8d2ef7b7dd"
+            ]
+        ]
+    },
+    {
+        "id": "da377e0ad0d9a23f",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 5",
+        "func": "// Assuming you have a field like 'timestamp' or '_id' to sort by\nconst sortBy = { timestamp: -1 }; // Replace 'timestamp' with your field name\nlet id = parseInt(global.get(\"can_id\"));\n// find query argument - this remains unchanged as you're still querying the same collection\nvar query = {\n    msg_id: id\n};\n\n// find option argument - now includes sorting and a limit\nconst options = {\n    sort: sortBy\n};\n\n// payload for mongodb4 node\nmsg.payload = [query, options];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 680,
+        "wires": [
+            [
+                "15c9f9a3f94b3769"
+            ]
+        ]
+    },
+    {
+        "id": "15c9f9a3f94b3769",
+        "type": "mongodb4",
+        "z": "f6f2187d.f17ca8",
+        "clientNode": "ac4d74e08b2188b7",
+        "mode": "collection",
+        "collection": "all_data",
+        "operation": "find",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 530,
+        "y": 680,
+        "wires": [
+            [
+                "5a6182d65cbb89a2"
+            ]
+        ]
+    },
+    {
+        "id": "5a6182d65cbb89a2",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 6",
+        "func": "// Function to dynamically get field names from the data\nfunction getDynamicFields(data) {\n    let fieldNames = new Set();\n    data.forEach(item => {\n        Object.keys(item).forEach(key => fieldNames.add(key));\n    });\n    return Array.from(fieldNames);\n}\n\n// Assuming msg.payload is an array of objects from the MongoDB query\nif (Array.isArray(msg.payload) && msg.payload.length > 0) {\n    // // Get dynamic fields from the data\n    // const fields = getDynamicFields(msg.payload);\n\n    // // Set the fields in msg to be used by the json2csv node\n    // msg.fields = fields;\n    msg.nodata = \"flase\";\n    // Pass the message to the next node (json2csv node)\n    return msg;\n} else {\n    // Handle empty or invalid data\n    node.warn('No data or invalid data format for CSV conversion');\n    msg.nodata= \"true\";\n    return msg; // Or handle as needed\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 680,
+        "wires": [
+            [
+                "ae35ad47bebf21db",
+                "bbb43c125c845946"
+            ]
+        ]
+    },
+    {
+        "id": "4377d3e98f072785",
+        "type": "json-2-csv",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "x": 1060,
+        "y": 680,
+        "wires": [
+            [
+                "0e621806c059c553"
+            ]
+        ]
+    },
+    {
+        "id": "0e621806c059c553",
+        "type": "file",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/data.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1280,
+        "y": 680,
+        "wires": [
+            [
+                "d39775359a228215",
+                "6eddb7d61c79abcf"
+            ]
+        ]
+    },
+    {
+        "id": "cdadaa8d2ef7b7dd",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 9",
+        "func": "// Example function node code for button click\nmsg.trigger = true;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 680,
+        "wires": [
+            [
+                "da377e0ad0d9a23f"
+            ]
+        ]
+    },
+    {
+        "id": "af16d6a69b32bfb7",
+        "type": "ui_text_input",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "label": "Message ID to query",
+        "tooltip": "",
+        "group": "81de8657af50733f",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": "100",
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 220,
+        "y": 560,
+        "wires": [
+            [
+                "056afcc205e54a11"
+            ]
+        ]
+    },
+    {
+        "id": "056afcc205e54a11",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "can_id",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bbb43c125c845946",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 10",
+        "func": "var nodata = msg.nodata;\nif (nodata == 'true')\n{\n    msg.payload = 'No Message found with the msg id: ' + global.get('can_id');\n    node.warn('setting text field');\n    return msg;\n}\nelse\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 800,
+        "wires": [
+            [
+                "5ae2e452d76ae65c"
+            ]
+        ]
+    },
+    {
+        "id": "ae35ad47bebf21db",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 11",
+        "func": "var nodata = msg.nodata;\nif( nodata == 'true')\n{\n    return null;\n}\nelse \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 680,
+        "wires": [
+            [
+                "4377d3e98f072785",
+                "ef2441db38dba186"
+            ]
+        ]
+    },
+    {
+        "id": "d39775359a228215",
+        "type": "ui_template",
+        "z": "f6f2187d.f17ca8",
+        "group": "81de8657af50733f",
+        "name": "",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "format": "<!-- ui_template node content -->\n<a id=\"hiddenDownloader\" href=\"http://192.168.31.4:1880/csv/data.csv\" download=\"data.csv\"\n    style=\"display:none;\">Download</a>\n<script type=\"text/javascript\">\n    // Add an AngularJS watch on 'msg' to listen for a message from the button\n    (function(scope) {\n        scope.$watch('msg', function(msg) {\n            if (msg) {\n                // Use the static link for the CSV file\n                var link = document.getElementById('hiddenDownloader');\n                // Trigger the download\n                link.click();\n            }\n        });\n    })(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1460,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6eddb7d61c79abcf",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1370,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "5ae2e452d76ae65c",
+        "type": "ui_toast",
+        "z": "f6f2187d.f17ca8",
+        "position": "bottom left",
+        "displayTime": "3",
+        "highlight": "Red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "Retry",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "No Message Found",
+        "x": 1050,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "d1806b9068e794e9",
+        "type": "ui_toast",
+        "z": "f6f2187d.f17ca8",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1030,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ef2441db38dba186",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 12",
+        "func": "var nodata = msg.nodata;\nif (nodata != 'true')\n{\n    msg.payload = 'Message found with the msg id: ' + global.get('can_id');\n    return msg;\n}\nelse\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 740,
+        "wires": [
+            [
+                "d1806b9068e794e9"
+            ]
+        ]
+    }
+]

@@ -519,7 +519,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 6",
-        "func": "// Function to dynamically get field names from the data\nfunction getDynamicFields(data) {\n    let fieldNames = new Set();\n    data.forEach(item => {\n        Object.keys(item).forEach(key => fieldNames.add(key));\n    });\n    return Array.from(fieldNames);\n}\n\n// Assuming msg.payload is an array of objects from the MongoDB query\nif (Array.isArray(msg.payload) && msg.payload.length > 0) {\n    // Get dynamic fields from the data\n    const fields = getDynamicFields(msg.payload);\n\n    // Set the fields in msg to be used by the json2csv node\n    msg.fields = fields;\n    msg.nodata = \"flase\";\n    // Pass the message to the next node (json2csv node)\n    return msg;\n} else {\n    // Handle empty or invalid data\n    node.warn('No data or invalid data format for CSV conversion');\n    msg.nodata= \"true\";\n    return msg; // Or handle as needed\n}\n",
+        "func": "// Function to dynamically get field names from the data\nfunction getDynamicFields(data) {\n    let fieldNames = new Set();\n    data.forEach(item => {\n        Object.keys(item).forEach(key => fieldNames.add(key));\n    });\n    return Array.from(fieldNames);\n}\n\n// Assuming msg.payload is an array of objects from the MongoDB query\nif (Array.isArray(msg.payload) && msg.payload.length > 0) {\n    // // Get dynamic fields from the data\n    // const fields = getDynamicFields(msg.payload);\n\n    // // Set the fields in msg to be used by the json2csv node\n    // msg.fields = fields;\n    msg.nodata = \"flase\";\n    // Pass the message to the next node (json2csv node)\n    return msg;\n} else {\n    // Handle empty or invalid data\n    node.warn('No data or invalid data format for CSV conversion');\n    msg.nodata= \"true\";\n    return msg; // Or handle as needed\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -714,6 +714,27 @@
         "className": "",
         "x": 1480,
         "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cc731515625b7ffd",
+        "type": "csv",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "sep": ";",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 1050,
+        "y": 620,
         "wires": [
             []
         ]

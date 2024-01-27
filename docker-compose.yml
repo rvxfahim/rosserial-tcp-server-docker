@@ -25,6 +25,8 @@ services:
       context: .
       dockerfile: Dockerfile_Nodered
     container_name: nodered
+    volumes:
+      - ./flows:/data
     depends_on:
       - roscore
     environment:
