@@ -105,11 +105,11 @@
     {
         "id": "81de8657af50733f",
         "type": "ui_group",
-        "name": "Default",
+        "name": "DB Query",
         "tab": "2ade4e74fc264a84",
         "order": 1,
         "disp": true,
-        "width": 6,
+        "width": "6",
         "collapse": false,
         "className": ""
     },
@@ -933,7 +933,7 @@
         "order": 4,
         "width": 6,
         "height": 1,
-        "format": "<!-- ui_template node content -->\n<a id=\"hiddenDownloader\" href=\"http://192.168.31.4:1880/csv/data.csv\" download=\"data.csv\"\n    style=\"display:none;\">Download</a>\n<script type=\"text/javascript\">\n    // Add an AngularJS watch on 'msg' to listen for a message from the button\n    (function(scope) {\n        scope.$watch('msg', function(msg) {\n            if (msg) {\n                // Use the static link for the CSV file\n                var link = document.getElementById('hiddenDownloader');\n                // Trigger the download\n                link.click();\n            }\n        });\n    })(scope);\n</script>",
+        "format": "<!-- ui_template node content -->\n<a id=\"hiddenDownloader\" href=\"\" download=\"data.csv\" style=\"display:none;\">Download</a>\n<script type=\"text/javascript\">\n    (function(scope) {\n        scope.$watch('msg', function(msg) {\n            if (msg) {\n                var link = document.getElementById('hiddenDownloader');\n                link.href = \"/get-csv\"; // Dynamic route\n                link.click();\n            }\n        });\n    })(scope);\n</script>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
@@ -1020,5 +1020,89 @@
                 "d1806b9068e794e9"
             ]
         ]
+    },
+    {
+        "id": "cc6c98f3658456c7",
+        "type": "http in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "url": "/get-csv",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 1230,
+        "y": 400,
+        "wires": [
+            [
+                "4a2a5897657abccb",
+                "bbab9303b40ad26a"
+            ]
+        ]
+    },
+    {
+        "id": "4a2a5897657abccb",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/data.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1420,
+        "y": 400,
+        "wires": [
+            [
+                "cdbc7a8d9b5d7424",
+                "3eec59b384890994"
+            ]
+        ]
+    },
+    {
+        "id": "cdbc7a8d9b5d7424",
+        "type": "http response",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "content-type": "text/csv"
+        },
+        "x": 1590,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "bbab9303b40ad26a",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1350,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "3eec59b384890994",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1550,
+        "y": 460,
+        "wires": []
     }
 ]
