@@ -8,7 +8,7 @@ import rospy
 from std_msgs.msg import String
 from pymongo import MongoClient, errors
 # Constants
-SEND_INTERVAL_MS = 100  # Example rate limit interval in milliseconds
+SEND_INTERVAL_MS = 300  # Example rate limit interval in milliseconds
 last_send_times = {}  # Dictionary to store the last send time for each msg_id
 
 # MongoDB setup
