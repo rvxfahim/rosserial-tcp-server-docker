@@ -438,7 +438,7 @@
         "drop": true,
         "allowrate": true,
         "outputs": 1,
-        "x": 350,
+        "x": 330,
         "y": 400,
         "wires": [
             [
@@ -456,7 +456,7 @@
         "width": 6,
         "height": 1,
         "passthru": false,
-        "label": "button",
+        "label": "Download CSV",
         "tooltip": "",
         "color": "",
         "bgcolor": "",
@@ -466,7 +466,7 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 90,
+        "x": 100,
         "y": 680,
         "wires": [
             [
@@ -536,26 +536,6 @@
         ]
     },
     {
-        "id": "08770cb76ec05416",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "name": "function 7",
-        "func": "// Function node to set headers and payload for CSV\nmsg.headers = {\n  'Content-Type': 'text/csv',\n  'Content-Disposition': 'attachment; filename=\"download.csv\"'\n};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1280,
-        "y": 680,
-        "wires": [
-            [
-                "0e621806c059c553"
-            ]
-        ]
-    },
-    {
         "id": "4377d3e98f072785",
         "type": "json-2-csv",
         "z": "f6f2187d.f17ca8",
@@ -564,7 +544,7 @@
         "y": 680,
         "wires": [
             [
-                "08770cb76ec05416"
+                "0e621806c059c553"
             ]
         ]
     },
@@ -579,50 +559,7 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 1460,
-        "y": 680,
-        "wires": [
-            [
-                "4de151701d163a72"
-            ]
-        ]
-    },
-    {
-        "id": "4de151701d163a72",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "name": "function 8",
-        "func": "msg.payload = {\n    filename: 'data.csv'\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1640,
-        "y": 680,
-        "wires": [
-            [
-                "d39775359a228215"
-            ]
-        ]
-    },
-    {
-        "id": "d39775359a228215",
-        "type": "ui_template",
-        "z": "f6f2187d.f17ca8",
-        "group": "81de8657af50733f",
-        "name": "",
-        "order": 4,
-        "width": 6,
-        "height": 1,
-        "format": "<!-- ui_template node content -->\n<a id=\"hiddenDownloader\" href=\"http://localhost:1880/csv/data.csv\" download=\"data.csv\"\n    style=\"display:none;\">Download</a>\n<script type=\"text/javascript\">\n    // Add an AngularJS watch on 'msg' to listen for a message from the button\n    (function(scope) {\n        scope.$watch('msg', function(msg) {\n            if (msg) {\n                // Use the static link for the CSV file\n                var link = document.getElementById('hiddenDownloader');\n                // Trigger the download\n                link.click();\n            }\n        });\n    })(scope);\n</script>",
-        "storeOutMessages": false,
-        "fwdInMessages": false,
-        "resendOnRefresh": false,
-        "templateScope": "local",
-        "className": "",
-        "x": 1800,
+        "x": 1280,
         "y": 680,
         "wires": [
             []
@@ -640,7 +577,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 240,
+        "x": 260,
         "y": 680,
         "wires": [
             [
@@ -716,7 +653,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1090,
+        "x": 1030,
         "y": 780,
         "wires": []
     },
@@ -732,7 +669,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 910,
+        "x": 870,
         "y": 780,
         "wires": [
             [
@@ -758,6 +695,27 @@
             [
                 "4377d3e98f072785"
             ]
+        ]
+    },
+    {
+        "id": "d39775359a228215",
+        "type": "ui_template",
+        "z": "f6f2187d.f17ca8",
+        "group": "81de8657af50733f",
+        "name": "",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "format": "<!-- ui_template node content -->\n<a id=\"hiddenDownloader\" href=\"http://localhost:1880/csv/data.csv\" download=\"data.csv\"\n    style=\"display:none;\">Download</a>\n<script type=\"text/javascript\">\n    // Add an AngularJS watch on 'msg' to listen for a message from the button\n    (function(scope) {\n        scope.$watch('msg', function(msg) {\n            if (msg) {\n                // Use the static link for the CSV file\n                var link = document.getElementById('hiddenDownloader');\n                // Trigger the download\n                link.click();\n            }\n        });\n    })(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1480,
+        "y": 680,
+        "wires": [
+            []
         ]
     },
     {

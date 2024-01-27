@@ -90,6 +90,7 @@ async def send_data_to_clients(data):
 
 def listener():
     rospy.Subscriber("/CAN_Data", String, callback)
+    rospy.Subscriber("/Unknown_Data", String, callback)
     rospy.spin()
 
 async def start_websocket_server():
