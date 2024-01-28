@@ -118,7 +118,7 @@
         "type": "mongodb4-client",
         "name": "",
         "protocol": "mongodb",
-        "hostname": "192.168.31.4",
+        "hostname": "192.168.31.5",
         "port": "",
         "dbName": "CAN_Data",
         "appName": "",
@@ -1104,78 +1104,5 @@
         "x": 1930,
         "y": 740,
         "wires": []
-    },
-    {
-        "id": "3ebb26222cb9a587",
-        "type": "ros-subscribe",
-        "z": "f6f2187d.f17ca8",
-        "server": "16e32ee25193139d",
-        "topicname": "/Unknown_Data",
-        "x": 140,
-        "y": 920,
-        "wires": [
-            [
-                "1dcffe640b3142e3"
-            ]
-        ]
-    },
-    {
-        "id": "7386f0d0317bae8b",
-        "type": "json",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "property": "payload",
-        "action": "str",
-        "pretty": false,
-        "x": 550,
-        "y": 920,
-        "wires": [
-            [
-                "2cd59a67a568e3d6"
-            ]
-        ]
-    },
-    {
-        "id": "1dcffe640b3142e3",
-        "type": "delay",
-        "z": "f6f2187d.f17ca8",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "10",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "0.1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "allowrate": true,
-        "outputs": 1,
-        "x": 350,
-        "y": 920,
-        "wires": [
-            [
-                "7386f0d0317bae8b"
-            ]
-        ]
-    },
-    {
-        "id": "2cd59a67a568e3d6",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "name": "function 13",
-        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nif (\"data\" in innerData) {\nvar data = innerData.data;\n    msg.payload = data;\n    return msg;\n}\nelse \nreturn null;\n// Set the chart data as the new payload\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 730,
-        "y": 920,
-        "wires": [
-            []
-        ]
     }
 ]

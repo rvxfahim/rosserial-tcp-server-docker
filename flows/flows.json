@@ -118,7 +118,7 @@
         "type": "mongodb4-client",
         "name": "",
         "protocol": "mongodb",
-        "hostname": "192.168.31.4",
+        "hostname": "mongodb",
         "port": "",
         "dbName": "CAN_Data",
         "appName": "",

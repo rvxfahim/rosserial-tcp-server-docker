@@ -240,7 +240,7 @@ def show_retry_dialog(retry_count):
         print("User canceled the connection retry.")
 
 def show_connection_config():
-    server_uri = simpledialog.askstring("Connection Configuration", "Enter server URI:", initialvalue="ws://192.168.31.4:3636")
+    server_uri = simpledialog.askstring("Connection Configuration", "Enter server URI:", initialvalue="ws://localhost:3636")
     if server_uri:
         start_client_thread(server_uri)
 
