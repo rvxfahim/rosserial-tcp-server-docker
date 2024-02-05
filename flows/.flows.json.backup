@@ -118,7 +118,7 @@
         "type": "mongodb4-client",
         "name": "",
         "protocol": "mongodb",
-        "hostname": "192.168.31.5",
+        "hostname": "mongodb",
         "port": "",
         "dbName": "CAN_Data",
         "appName": "",
@@ -270,7 +270,7 @@
         "y": 340,
         "wires": [
             [
-                "260f269cbdbe56b4"
+                "14a6d4ab34f51f0a"
             ]
         ]
     },
@@ -279,7 +279,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 1",
-        "func": "// Parse the initial JSON string to get the data field\nvar outerData = JSON.parse(msg.payload);\n\n// Now parse the data string to get the actual object\nvar innerData = JSON.parse(outerData.data);\n\n// Extract the msg_id value\nif ('fl' in innerData) {\nvar fl = innerData.fl;\n    msg.payload = fl;\n    return msg;\n}\nelse \nreturn null;\n// Set the chart data as the new payload\n",
+        "func": "// Parse the outer JSON to get the \"data\" field\nvar outerData = JSON.parse(msg.payload);\n\n// The \"data\" field contains a string with multiple JSON objects separated by '\\n'\n// Split this string into individual JSON strings\nvar dataStrings = outerData.data.split('\\n').filter(Boolean); // Use filter(Boolean) to remove any empty strings\n\n// Initialize a variable to hold the latest 'fl' value\nvar latestFlValue = null;\n\n// Only proceed if there are any data strings\nif (dataStrings.length > 0) {\n    // Get the last JSON string in the array, which should be the latest data point\n    var latestDataString = dataStrings[dataStrings.length - 1];\n    try {\n        // Parse the latest JSON string to get the actual object\n        var latestData = JSON.parse(latestDataString);\n        \n        // Check for the 'fl' key in the latest data object\n        if ('fl' in latestData) {\n            latestFlValue = latestData.fl;\n        }\n    } catch (e) {\n        // Handle any parsing errors\n        node.error(\"Error parsing the latest JSON string: \" + e.message);\n    }\n}\n\n// Now, latestFlValue should hold the latest 'fl' value, or remain null if not found\nif (latestFlValue !== null) {\n    // Ensure the value is an integer before returning\n    msg.payload = Math.round(latestFlValue); // Round to nearest integer\n    return msg;\n} else {\n    return null; // Or handle the case where no valid data was found\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -291,7 +291,8 @@
         "wires": [
             [
                 "7f247208e1465a66",
-                "48a8ef8ab0b032c3"
+                "48a8ef8ab0b032c3",
+                "19a17ac906bafa5c"
             ]
         ]
     },
@@ -307,9 +308,9 @@
         "y": 340,
         "wires": [
             [
+                "cfcfaece8b94b572",
                 "9f031483db7ea1e0",
                 "f372b995844454bc",
-                "cfcfaece8b94b572",
                 "c0a74053ca326513"
             ]
         ]
@@ -683,11 +684,9 @@
         "allowrate": true,
         "outputs": 1,
         "x": 330,
-        "y": 340,
+        "y": 260,
         "wires": [
-            [
-                "14a6d4ab34f51f0a"
-            ]
+            []
         ]
     },
     {
@@ -1103,6 +1102,22 @@
         "statusType": "auto",
         "x": 1930,
         "y": 740,
+        "wires": []
+    },
+    {
+        "id": "19a17ac906bafa5c",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 180,
         "wires": []
     }
 ]

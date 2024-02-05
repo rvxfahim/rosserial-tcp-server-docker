@@ -56,25 +56,24 @@ def should_send_for_msg_id(msg_id):
 
 def callback(data):
     try:
-        parsed_data = json.loads(data.data)
-        msg_id = parsed_data.get('msg_id')
-        parsed_data['timestamp'] = time.time_ns() // 1_000_000
+        # Split the received data into individual JSON strings
+        json_strings = data.data.split('\n')[:-1]  # Assuming '\n' is used as a delimiter
+        for json_str in json_strings:
+            parsed_data = json.loads(json_str)
+            msg_id = parsed_data.get('msg_id')
+            # parsed_data['timestamp'] = time.time_ns() // 1_000_000
+            # print(parsed_data)
+            if msg_id is not None and should_send_for_msg_id(msg_id):
+                asyncio.run_coroutine_threadsafe(send_data_to_clients(json_str), loop)
+            
+            if 'data' in parsed_data:
+                asyncio.run_coroutine_threadsafe(queue_with_data.put(parsed_data), loop)
+            else:
+                asyncio.run_coroutine_threadsafe(queue_without_data.put(parsed_data), loop)
     except json.JSONDecodeError as e:
         print(f"Failed to parse JSON: {e}")
         print(f"Received data: {data.data}")  # Print the received data
-        return
 
-    # Check if the message should be sent for this msg_id
-    if msg_id is not None and should_send_for_msg_id(msg_id):
-        asyncio.run_coroutine_threadsafe(send_data_to_clients(data.data), loop)
-    else:
-        # Handle the case where msg_id is None or rate limit applies
-        pass
-
-    if 'data' in parsed_data:
-        asyncio.run_coroutine_threadsafe(queue_with_data.put(parsed_data), loop)
-    else:
-        asyncio.run_coroutine_threadsafe(queue_without_data.put(parsed_data), loop)
 
 async def send_data_to_clients(data):
     disconnected_clients = []
